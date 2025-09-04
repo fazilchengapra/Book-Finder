@@ -8,7 +8,7 @@ type Suggestion = {
   author_name?: Array<string>;
   cover_i?: number;
   cover_edition_key?: string;
-  author_key?: string[];
+  author_key?: Array<string>;
 };
 
 const Suggestions = ({ suggestions = [] as Suggestion[] }) => {
@@ -50,7 +50,7 @@ const Suggestions = ({ suggestions = [] as Suggestion[] }) => {
                   : "https://via.placeholder.com/150",
                 description: "No description available.",
                 authorAvatar: option.author_key
-                  ? `https://covers.openlibrary.org/a/olid/${option.author_key[0]}-M.jpg`
+                  ? [`https://covers.openlibrary.org/a/olid/${option.author_key[0]}-M.jpg`]
                   : undefined,
                 bookUrl: option.cover_edition_key
                   ? `https://openlibrary.org/books/${option.cover_edition_key}`

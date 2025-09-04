@@ -53,14 +53,7 @@ const SearchBar = () => {
         <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-gray-400">
           <Search size={20} />
         </div>
-
-        {/* Search button */}
-        <button
-          type="submit"
-          className="absolute right-2 top-2 bottom-2 px-6 rounded-full bg-secondary text-white font-medium hover:bg-secondary/90 focus:ring-2 focus:ring-offset-2 focus:ring-secondary transition"
-        >
-          Search
-        </button>
+        
       </form>
 
       {/* Suggestions list */}

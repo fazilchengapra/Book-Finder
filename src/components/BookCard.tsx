@@ -5,12 +5,13 @@ type Book = {
   author: Array<string>;
   coverUrl: string;
   description?: string;
-  authorAvatar?: string;
+  authorAvatar?: Array<string>;
   bookUrl?: string; // 🔗 OpenLibrary link
 };
 
 const BookCard = ({ book }: { book: Book }) => {
   const { title, author, coverUrl, description, authorAvatar, bookUrl } = book;
+  
 
   return (
     <div className="w-full">
@@ -24,6 +25,7 @@ const BookCard = ({ book }: { book: Book }) => {
                   src={coverUrl}
                   className="object-contain h-56 w-auto"
                   alt={title}
+                  loading="lazy"
                 />
               </div>
             </div>
@@ -36,20 +38,23 @@ const BookCard = ({ book }: { book: Book }) => {
               <p className="text-xs text-start text-gray-800">by {author?.join(", ")}</p>
             </div>
 
-            <div className="text-xs text-gray-700">
-              <p>{description || "No description available."}</p>
+            <div className="text-xs">
+              <p className={`${description && description.length > 0 && 'text-gray-700'} text-red-600`}>{description || "No description available."}</p>
             </div>
 
             {/* Author Avatar */}
             {authorAvatar && (
               <div className="justify-end">
                 <div className="flex flex-row">
-                  <Avatar
-                    size="2"
-                    src={authorAvatar}
-                    radius="full"
-                    fallback={author[0]?.charAt(0) || "?"}
-                  />
+                  {authorAvatar?.map(url => (
+                    <Avatar
+                      key={url}
+                      size="2"
+                      src={url}
+                      radius="full"
+                      fallback={author[0]?.charAt(0) || "?"}
+                    />
+                  ))}
                 </div>
               </div>
             )}
