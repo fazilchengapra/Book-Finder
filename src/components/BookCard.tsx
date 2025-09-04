@@ -11,7 +11,6 @@ type Book = {
 
 const BookCard = ({ book }: { book: Book }) => {
   const { title, author, coverUrl, description, authorAvatar, bookUrl } = book;
-  
 
   return (
     <div className="w-full">
@@ -35,18 +34,26 @@ const BookCard = ({ book }: { book: Book }) => {
           <div className="col-span-8 text-start flex flex-col px-4 mt-3 gap-4">
             <div>
               <h1 className="text-lg font-bold text-gray-800">{title}</h1>
-              <p className="text-xs text-start text-gray-800">by {author?.join(", ")}</p>
+              <p className="text-xs text-start text-gray-800">
+                by {author?.join(", ")}
+              </p>
             </div>
 
             <div className="text-xs">
-              <p className={`${description && description.length > 0 && 'text-gray-700'} text-red-600`}>{description || "No description available."}</p>
+              <p
+                className={`${
+                  description && description.length > 0 && "text-gray-700"
+                } text-red-600`}
+              >
+                {description || "No description available."}
+              </p>
             </div>
 
             {/* Author Avatar */}
             {authorAvatar && (
               <div className="justify-end">
                 <div className="flex flex-row">
-                  {authorAvatar?.map(url => (
+                  {authorAvatar?.map((url) => (
                     <Avatar
                       key={url}
                       size="2"
@@ -62,21 +69,32 @@ const BookCard = ({ book }: { book: Book }) => {
         </div>
 
         {/* Actions */}
-{bookUrl ? (
-  <Button><a href={bookUrl} className="w-full">Read Now</a></Button>
-) : (
-  <Button disabled className="w-full justify-center">
-    Read Now
-  </Button>
-)}
+        {bookUrl ? (
+          <Button asChild>
+            <a
+              href={bookUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full"
+            >
+              Read Now
+            </a>
+          </Button>
+        ) : (
+          <Button disabled className="w-full justify-center">
+            Read Now
+          </Button>
+        )}
 
-<AlertDialog.Cancel className="w-full block">
-  <Button variant="outline" color="red" className="w-full justify-center">
-    Close
-  </Button>
-</AlertDialog.Cancel>
-
-
+        <AlertDialog.Cancel className="w-full block">
+          <Button
+            variant="outline"
+            color="red"
+            className="w-full justify-center"
+          >
+            Close
+          </Button>
+        </AlertDialog.Cancel>
       </div>
     </div>
   );

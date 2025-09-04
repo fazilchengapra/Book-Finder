@@ -2,10 +2,14 @@ import { useEffect, useState, useCallback } from "react";
 import { Search } from "lucide-react"; 
 import Suggestions from "./Suggestions";
 import { getSuggestions } from "../services/getSuggestions";
+import { useDebounce } from "use-debounce";
+
 
 const SearchBar = () => {
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+  const [debouncedQuery] = useDebounce(query, 300);
+
 
   // Debounced fetch function
   const fetchSuggestions = useCallback(async () => {
@@ -24,12 +28,11 @@ const SearchBar = () => {
   }, [query]);
 
   useEffect(() => {
-    const delayDebounce = setTimeout(() => {
-      fetchSuggestions();
-    }, 150);
+  if (debouncedQuery.length >= 3) {
+    fetchSuggestions();
+  }
+}, [debouncedQuery, fetchSuggestions]);
 
-    return () => clearTimeout(delayDebounce);
-  }, [query, fetchSuggestions]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
